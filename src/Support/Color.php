@@ -39,7 +39,7 @@ class Color
         return $this->alpha;
     }
 
-    public function allocate(GdImage $img): int|false
+    public function allocate(GdImage $img)
     {
         return imagecolorallocatealpha(
             $img,
