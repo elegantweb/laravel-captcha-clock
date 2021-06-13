@@ -1,0 +1,42 @@
+{
+    "name": "elegantweb/laravel-clock-captcha",
+    "description": "Clock based captcha library for the Laravel framework.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sina Sharifzade",
+            "email": "sharifzadesina@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": "^8.0",
+        "laravel/framework": "^8.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^6.0",
+        "phpunit/phpunit": "^9.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Elegant\\Captcha\\Clock\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Elegant\\Captcha\\Clock\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Elegant\\Captcha\\Clock\\ServiceProvider"
+            ]
+        }
+    },
+    "scripts": {
+        "test": "phpunit"
+    }
+}
