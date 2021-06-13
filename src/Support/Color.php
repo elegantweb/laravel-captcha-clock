@@ -2,8 +2,6 @@
 
 namespace Elegant\Captcha\Clock\Support;
 
-use GdImage;
-
 class Color
 {
     private int $red;
@@ -39,10 +37,10 @@ class Color
         return $this->alpha;
     }
 
-    public function allocate(GdImage $img)
+    public function allocate($image)
     {
         return imagecolorallocatealpha(
-            $img,
+            $image,
             $this->getRed(),
             $this->getGreen(),
             $this->getBlue(),

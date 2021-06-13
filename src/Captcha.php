@@ -45,7 +45,6 @@ class Captcha
         $board = new CaptchaBoard($this->width, $this->height);
 
         $board->drawFace(Color::createRandomLightColor());
-        $board->drawBorder(new Color(0, 0, 0, 0));
 
         $board->drawHourPoints(4, 8, new Color(0, 0, 0, 0));
         $board->drawMinutePoints(2, 4, new Color(0, 0, 0, 0));
@@ -53,8 +52,10 @@ class Captcha
         $hourHandColor = Color::createRandomDarkColor();
         $minuteHandColor = Color::createRandomDarkColor();
 
-        $board->drawHand(4, 32, Helper::hourToAngle($this->hour), $hourHandColor);
+        $board->drawHand(4, 32, Helper::hourToAngle($this->hour, $this->minute), $hourHandColor);
         $board->drawHand(2, 64, Helper::minuteToAngle($this->minute), $minuteHandColor);
+
+        $board->drawBorder(new Color(0, 0, 0, 0));
 
         $board->drawRandomEllipse(6, $hourHandColor);
         $board->drawRandomRectangle(2, $minuteHandColor);

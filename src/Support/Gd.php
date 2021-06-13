@@ -2,12 +2,22 @@
 
 namespace Elegant\Captcha\Clock\Support;
 
-use GdImage;
-
 class Gd
 {
+    public static function makeBgTransparent($image)
+    {
+        $transparency = imagecolorallocatealpha($image, 255, 255, 255, 127);
+        imagefill($image, 0, 0, $transparency);
+    }
+
+    public static function rotateTransparently($image, float $angle)
+    {
+        $transparency = imagecolorallocatealpha($image, 255, 255, 255, 127);
+        return imagerotate($image, $angle, $transparency);
+    }
+
     public static function drawTickEllipse(
-        GdImage $image,
+        $image,
         int $thickness,
         int $centerX,
         int $centerY,

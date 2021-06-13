@@ -5,19 +5,16 @@ namespace Elegant\Captcha\Clock;
 use Elegant\Captcha\Clock\Support\Helper;
 use Elegant\Captcha\Clock\Support\Color;
 use Elegant\Captcha\Clock\Support\Gd;
-use GdImage;
 
 class CaptchaBoard
 {
-    protected GdImage $image;
+    protected $image;
 
     public function __construct(int $width, int $height)
     {
         $this->image = imagecreatetruecolor($width, $height);
 
-        imagesavealpha($this->image, true);
-        $transparency = imagecolorallocatealpha($this->image, 0, 0, 0, 127);
-        imagefill($this->image, 0, 0, $transparency);
+        Gd::makeBgTransparent($this->image);
     }
 
     public function drawFace(Color $color): self
@@ -71,14 +68,12 @@ class CaptchaBoard
 
         $pointImg = imagecreatetruecolor($faceWidth, $faceHeight);
 
-        $bg = imagecolorallocatealpha($pointImg, 0, 0, 0, 127);
-        imagefill($pointImg, 0, 0, $bg);
+        Gd::makeBgTransparent($pointImg);
 
         $bg = $color->allocate($pointImg);
         imagefilledrectangle($pointImg, ($faceWidth / 2) - ($pointWidth / 2), 0, ($faceWidth / 2) + ($pointWidth / 2), $pointHeight, $bg);
 
-        $bg = imagecolorallocatealpha($pointImg, 0, 0, 0, 127);
-        $pointImg = imagerotate($pointImg, $angle * -1, $bg);
+        $pointImg = Gd::rotateTransparently($pointImg, $angle * -1);
 
         $rotatedWidth = imagesx($pointImg);
         $rotatedHeight = imagesy($pointImg);
@@ -100,14 +95,12 @@ class CaptchaBoard
         $height = $handHeight * 2;
         $handImg = imagecreatetruecolor($width, $height);
 
-        $bg = imagecolorallocatealpha($handImg, 0, 0, 0, 127);
-        imagefill($handImg, 0, 0, $bg);
+        Gd::makeBgTransparent($handImg);
 
         $bg = $color->allocate($handImg);
         imagefilledrectangle($handImg, ($width / 2) - ($handWidth / 2), 0, ($width / 2) + ($handWidth / 2), $height / 2, $bg);
 
-        $bg = imagecolorallocatealpha($handImg, 0, 0, 0, 127);
-        $handImg = imagerotate($handImg, $angle * -1, $bg);
+        $handImg = Gd::rotateTransparently($handImg, $angle * -1);
 
         $rotatedWidth = imagesx($handImg);
         $rotatedHeight = imagesy($handImg);
@@ -178,7 +171,7 @@ class CaptchaBoard
             rand($quarter['x'][0], $quarter['x'][1]), rand($quarter['y'][0], $quarter['y'][1]),
         ];
 
-        imagepolygon($this->image, $points, $color->allocate($this->image));
+        imagepolygon($this->image, $points, 3, $color->allocate($this->image));
 
         return $this;
     }

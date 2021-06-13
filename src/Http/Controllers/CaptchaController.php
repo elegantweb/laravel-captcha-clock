@@ -2,9 +2,11 @@
 
 namespace Elegant\Captcha\Clock\Http\Controllers;
 
+use Elegant\Captcha\Clock\Captcha;
+use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 
-class CaptchaController
+class CaptchaController extends Controller
 {
     public function image(Request $request)
     {
