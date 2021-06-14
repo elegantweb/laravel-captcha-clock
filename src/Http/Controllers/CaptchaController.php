@@ -16,6 +16,8 @@ class CaptchaController extends Controller
         $request->session()->put('captcha.clock', [$hour, $minute]);
 
         $captcha = new Captcha();
+        $captcha->setWidth($request->input('w', 200));
+        $captcha->setHeight($request->input('h', 200));
         $captcha->setHour($hour);
         $captcha->setMinute($minute);
         $content = $captcha->render();
