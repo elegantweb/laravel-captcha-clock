@@ -17,7 +17,8 @@ class ServiceProvider extends BaseServiceProvider
 
         $validator = $this->app['validator'];
         $validator->extend('captcha_clock', function ($attribute, $value, $parameters) {
-            return captcha_clock_check($value['hour'], $value['minute']);
+            return isset($value['hour'], $value['minute'])
+                    && captcha_clock_check($value['hour'], $value['minute']);
         });
     }
 
