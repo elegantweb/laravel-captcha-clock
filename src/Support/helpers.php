@@ -1,7 +1,7 @@
 <?php
 
 if (!function_exists('captcha_clock_check')) {
-    function captcha_clock_check($hour, $minute)
+    function captcha_clock_check(int $hour, int $minute): bool
     {
         $secret = session()->get('captcha.clock');
 
@@ -10,7 +10,7 @@ if (!function_exists('captcha_clock_check')) {
 }
 
 if (!function_exists('captcha_clock_src')) {
-    function captcha_clock_src(array $params = [])
+    function captcha_clock_src(array $params = []): string
     {
         return route('captcha.clock.image', $params);
     }
